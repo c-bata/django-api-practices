@@ -111,6 +111,8 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
+AUTH_USER_MODEL = 'accounts.User'
+
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 

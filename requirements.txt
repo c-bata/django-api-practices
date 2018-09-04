@@ -2,3 +2,5 @@ django
 gunicorn
 markdown
 pygments
+requests
+pillow
