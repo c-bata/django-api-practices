@@ -1,0 +1,57 @@
+version: '2'
+services:
+  backend:
+    container_name: snippets_backend
+    build:
+      context: ./backend
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=snippets
+      - MYSQL_DATABASE=snippets
+
+      - SECRET_KEY
+      - REDIS_PASSWORD
+      - MYSQL_PASSWORD
+      - SOCIAL_AUTH_GITHUB_KEY
+      - SOCIAL_AUTH_GITHUB_SECRET
+    links:
+      - mysql
+      - redis
+    ports:
+      - "8080:80"
+    #volumes_from:
+    #  - front
+    command: gunicorn -w 1 -b :80 --reload --log-level debug djangosnippets.wsgi:application
+
+  #front:
+  #  container_name: snippets_frontend
+  #  build:
+  #    context: ./front
+  #  volumes:
+  #    - ./front/dist:/usr/src/public
+  #    - /usr/src/public
+
+  mysql:
+    image: mysql:5.7
+    container_name: snippets_mysql
+    environment:
+      - MYSQL_USER=snippets
+      - MYSQL_DATABASE=snippets
+      - MYSQL_PASSWORD
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./databases/mysql:/etc/mysql/conf.d
+
+  redis:
+    image: redis:latest
+    container_name: snippets_redis
+    environment:
+      - REDIS_PASSWORD
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass ${REDIS_PASSWORD}
