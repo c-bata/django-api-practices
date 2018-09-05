@@ -13,6 +13,9 @@ class Snippet(models.Model):
     created_at = models.DateTimeField("投稿日", auto_now_add=True)
     updated_at = models.DateTimeField("更新日", auto_now=True)
 
+    class Meta:
+        db_table = 'snippets'
+
 
 class Comment(models.Model):
     text = models.TextField("本文", blank=False)
@@ -22,3 +25,6 @@ class Comment(models.Model):
     commented_by = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      verbose_name="投稿者",
                                      on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'comments'
