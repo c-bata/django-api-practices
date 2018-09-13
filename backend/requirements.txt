@@ -5,3 +5,6 @@ markdown
 pygments
 requests
 pillow
+faker
+factory_boy
+
