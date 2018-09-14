@@ -38,8 +38,8 @@ services:
     image: mysql:5.7
     container_name: snippets_mysql
     environment:
-      - MYSQL_USER=snippets
-      - MYSQL_DATABASE=snippets
+      - MYSQL_USER
+      - MYSQL_DATABASE
       - MYSQL_PASSWORD
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     ports:
