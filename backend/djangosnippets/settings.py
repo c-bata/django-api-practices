@@ -182,7 +182,19 @@ SOCIAL_AUTH_GITHUB_SECRET = os.getenv("SOCIAL_AUTH_GITHUB_SECRET", "")
 # REST Framework
 
 REST_FRAMEWORK = {
-    #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 100,
 }
+
+if os.environ.get("RATE_LIMIT") == "true":
+    REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = (
+        # 'snippets.throttles.BurstRateThrottle',
+        # 'snippets.throttles.SustainedRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    )
+    REST_FRAMEWORK['DEFAULT_THROTTLE_RATES'] = {
+        # 'burst': '20/sec',
+        # 'sustained': '100/min',
+        'anon': '15/sec',
+        'user': '100/sec',
+    }

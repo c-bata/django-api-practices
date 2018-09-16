@@ -35,19 +35,15 @@ def print_result(results: Iterator[Tuple[int, str]], elapsed: float):
     print(f"{elapsed:.3f} secs / {cnt_req} req, 2xx={cnt2xx} 4xx={cnt4xx} 5xx={cnt5xx} timeout={cnt_timeout}")
 
 
-def dos(url: str):
-    start = time.time()
-    with ThreadPoolExecutor(10) as pool:
-        results = pool.map(fetch, [url for _ in range(100)])
-    end = time.time()
-    elapsed = end - start
-    print_result(results, elapsed)
-
-
 def main():
     url = "http://127.0.0.1:8000/api/snippets/"
     while True:
-        dos(url)
+        start = time.time()
+        with ThreadPoolExecutor(10) as pool:
+            results = pool.map(fetch, [url for _ in range(100)])
+        end = time.time()
+        elapsed = end - start
+        print_result(results, elapsed)
 
 
 if __name__ == '__main__':
