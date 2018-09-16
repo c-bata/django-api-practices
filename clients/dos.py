@@ -1,12 +1,23 @@
+import os
+
 import requests
+from requests.auth import HTTPBasicAuth
 import time
 from typing import Iterator, Tuple
 from concurrent.futures import ThreadPoolExecutor
 
 
+do_login = os.environ.get("USE_AUTH") == "true"
+username = "dosuser"
+password = "abcde10223"
+
+
 def fetch(url: str):  # returns: status_code, timeout
     try:
-        res = requests.get(url, timeout=5)
+        if do_login:
+            res = requests.get(url, timeout=5, auth=HTTPBasicAuth(username, password))
+        else:
+            res = requests.get(url, timeout=5)
     except requests.exceptions.Timeout:
         return 0, True
     except requests.exceptions.ConnectionError:

@@ -1,10 +1,14 @@
 import requests
+from requests.auth import HTTPBasicAuth
 import time
+
+username = "shibata"
+password = "abcde10223"
 
 
 def fetch(url: str):  # returns: status_code, timeout
     try:
-        res = requests.get(url, timeout=5)
+        res = requests.get(url, timeout=5, auth=HTTPBasicAuth(username, password))
     except requests.exceptions.Timeout:
         return 0, True
     except requests.exceptions.ConnectionError:

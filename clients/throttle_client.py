@@ -1,11 +1,21 @@
 from concurrent.futures.thread import ThreadPoolExecutor
+import os
 import requests
+from requests.auth import HTTPBasicAuth
 import time
 from threading import Lock
 from typing import Iterator, Tuple
 
 
+do_login = os.environ.get("USE_AUTH") == "true"
+username = "shibata"
+password = "abcde10223"
 url = "http://127.0.0.1:8000/api/snippets/"
+
+if do_login:
+    rate_per_second = 8
+else:
+    rate_per_second = 2
 
 
 class Throttle:
@@ -44,7 +54,10 @@ def fetch_with_throttle(throttle: Throttle):  # returns: status_code, timeout
     throttle.consume()
 
     try:
-        res = requests.get(url, timeout=5)
+        if do_login:
+            res = requests.get(url, timeout=5, auth=HTTPBasicAuth(username, password))
+        else:
+            res = requests.get(url, timeout=5)
     except requests.exceptions.Timeout:
         return 0, True
     except requests.exceptions.ConnectionError:
@@ -74,7 +87,7 @@ def print_result(results: Iterator[Tuple[int, str]], elapsed: float):
 
 
 def main():
-    throttle = Throttle(10)
+    throttle = Throttle(rate_per_second)
     while True:
         start = time.time()
         with ThreadPoolExecutor(10) as pool:
