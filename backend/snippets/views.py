@@ -10,7 +10,7 @@ from snippets.models import Snippet, Comment
 
 def top(request):
     context = {
-        "snippets": Snippet.objects.all(),
+        "snippets": Snippet.objects.select_related('created_by').all(),
         "num_snippets": Snippet.objects.all().count(),
         "num_users": get_user_model().objects.all().count(),
     }
