@@ -9,6 +9,12 @@
     <a class="btn btn-primary" href="{% url 'new_snippet' %}">スニペットを作成する</a>
 </div>
 
+{% for message in messages %}
+<div {% if message.tags %}class="{{ message.tags }}"{% endif %}>
+    {{ message }}
+</div>
+{% endfor %}
+
 <h2>スニペット一覧</h2>
 {% if snippets %}
 <table class="table">

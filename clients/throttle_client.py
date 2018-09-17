@@ -9,7 +9,7 @@ from typing import Iterator, Tuple
 
 do_login = os.environ.get("USE_AUTH") == "true"
 username = "shibata"
-password = "abcde10223"
+password = "abcde1223"
 url = "http://127.0.0.1:8000/api/snippets/"
 
 if do_login:

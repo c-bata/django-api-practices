@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
@@ -10,6 +11,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.add_message(request, messages.SUCCESS, f"会員登録に成功しました")
             return redirect('top')
     else:
         form = UserCreationForm()

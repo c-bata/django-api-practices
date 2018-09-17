@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 do_login = os.environ.get("USE_AUTH") == "true"
 username = "dosuser"
-password = "abcde10223"
+password = "abcde1223"
 
 
 def fetch(url: str):  # returns: status_code, timeout

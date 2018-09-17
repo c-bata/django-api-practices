@@ -1,5 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm
-from .models import User
+
+
+UserModel = get_user_model()
 
 
 class UserCreationForm(BaseUserCreationForm):
@@ -7,5 +10,5 @@ class UserCreationForm(BaseUserCreationForm):
         super().__init__(*args, **kwargs)
 
     class Meta:
-        model = User
+        model = UserModel
         fields = 'username',

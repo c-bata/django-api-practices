@@ -3,7 +3,7 @@ from requests.auth import HTTPBasicAuth
 import time
 
 username = "shibata"
-password = "abcde10223"
+password = "abcde1223"
 
 
 def fetch(url: str):  # returns: status_code, timeout
