@@ -34,11 +34,9 @@ export SECRET_KEY=secretkey
 
 # database
 export REDIS_PASSWORD=redispass
+export MYSQL_USER=snippets
 export MYSQL_PASSWORD=mysqlpass
-
-# social
-export SOCIAL_AUTH_GITHUB_KEY=key
-export SOCIAL_AUTH_GITHUB_SECRET=secret
+export MYSQL_PASSWORD=mysqlpass
 ```
 
 Running:

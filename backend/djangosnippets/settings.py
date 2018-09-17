@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     # internal apps
     'snippets.apps.SnippetsConfig',
     'accounts.apps.AccountsConfig',
-    'socials.apps.SocialsConfig',
     # third party apps
     'rest_framework',
 ]
