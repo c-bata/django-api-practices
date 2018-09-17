@@ -2,14 +2,27 @@ django-api-practices
 ====================
 
 Sample source code for my talk (title: "Django REST Framework におけるAPI実装プラクティス" in Japanese) at [PyConJP 2018](https://pycon.jp/2018/).
+Presentaiton slide is:
 
-Requirements
+https://www.slideshare.net/c-bata/django-rest-framework-api-pycon-jp-2018-114941317
+
+# Rate Limiting
+
+## Sending many requests without rate limiting
+
+![many_requests_without_rate_limit](./media/many_requests_without_rate_limit.gif)
+
+## Sending many requests with rate limiting
+
+![many_requests_with_rate_limit](./media/many_requests_with_rate_limit.gif)
+
+# How to run
+
+## Requirements
 
 * Python 3.7
 * Django 2.1
 * And others listed in requirements.txt
-
-# How to run
 
 ## Using Docker compose
 
