@@ -7,6 +7,8 @@ from django.views.decorators.http import require_GET, require_POST
 from snippets.forms import SnippetForm, CommentForm
 from snippets.models import Snippet, Comment
 
+UserModel = get_user_model()
+
 
 def top(request):
     context = {
@@ -26,9 +28,11 @@ def new_snippet(request):
             snippet.created_by = request.user
             snippet.save()
             return redirect(top)
+        else:
+            return render(request, "snippets/snippet_new.html", {'form': form}, status=400)
     else:
         form = SnippetForm()
-    return render(request, "snippets/snippet_new.html", {'form': form})
+        return render(request, "snippets/snippet_new.html", {'form': form})
 
 
 @login_required
