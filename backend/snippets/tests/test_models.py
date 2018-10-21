@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from snippets.models import Snippet
 
-
 UserModel = get_user_model()
 
 
