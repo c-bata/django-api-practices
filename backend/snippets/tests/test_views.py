@@ -1,11 +1,29 @@
+from unittest import mock
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseRedirect
 from django.test import TestCase, RequestFactory
+from django.utils import timezone
 
-from snippets.views import new_snippet
+from snippets.tests.factories import SnippetFactory
+from snippets.views import new_snippet, list_recently_updated_snippets
 
 UserModel = get_user_model()
+
+
+current_datetime = timezone.datetime(year=2019, month=1, day=15, hour=12)
+
+
+class ListRecentlyUpdatedSnippetsTests(TestCase):
+    @mock.patch('django.utils.timezone.now', return_value=current_datetime)
+    def test_should_match_only_updated_two_days_ago(self, mock_now):
+        SnippetFactory(updated_at=current_datetime - timezone.timedelta(days=2))
+        SnippetFactory(updated_at=current_datetime - timezone.timedelta(days=4))
+        actual = list_recently_updated_snippets(days=3)
+        expected_snippet_counts = 2
+        self.assertEqual(len(actual), expected_snippet_counts)
+        self.assertTrue(mock_now.called)
 
 
 class SnippetCreateViewTests(TestCase):
